@@ -28,3 +28,5 @@ ssh_config_users_absent: []
   # - example
 
 ssh_config_github_url: https://github.com
+
+ssh_config_ssh_auth_sock: True

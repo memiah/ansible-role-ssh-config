@@ -65,3 +65,13 @@
   when:
     - item.passwordless_sudo is defined
     - item.passwordless_sudo == True
+
+- name: Copy /etc/sudoers.d/ssh_auth_sock into place.
+  copy:
+    content: "# Ansible Managed\n\nDefaults env_keep += \"SSH_AUTH_SOCK\"\n"
+    dest: "/etc/sudoers.d/ssh_auth_sock"
+    owner: root
+    group: root
+    mode: 0440
+    validate: "visudo -cf %s"
+  when: ssh_config_ssh_auth_sock == True

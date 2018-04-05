@@ -58,6 +58,10 @@ A list of groups that should not be present on the server and should be removed.
 By default, use public GitHub (i.e. https://github.com) as the source for users/keys. Override this to use a different 
 GitHub instance/endpoint (e.g. GitHub Enterprise).
 
+    ssh_config_ssh_auth_sock: True
+
+For SSH agent forwarding, maintain the SSH_AUTH_SOCK environment variable.
+
 Dependencies
 ------------
 
