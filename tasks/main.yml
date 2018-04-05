@@ -1,0 +1,67 @@
+---
+- name: Ensure system groups are present.
+  group:
+    name: "{{ item.name }}"
+    state: present
+  with_items: "{{ ssh_config_groups }}"
+
+- name: Remove unwanted system groups.
+  group:
+    name: "{{ item.name | default(item) }}"
+    state: present
+  with_items: "{{ ssh_config_groups_absent }}"
+
+- name: Ensure user accounts are present.
+  user:
+    name: "{{ item.name | default(item.github) }}"
+    shell: /bin/bash
+    createhome: yes
+    groups: "{{ item.groups | default(omit) }}"
+    home: /home/{{ item.name | default(item.github) }}
+    state: present
+  with_items: "{{ ssh_config_users }}"
+
+- name: Ensure authorized_keys for GitHub user accounts are present.
+  authorized_key:
+    user: "{{ item.name | default(item.github) }}"
+    key: "{{ ssh_config_github_url }}/{{ item.github }}.keys"
+    manage_dir: yes
+  with_items: "{{ ssh_config_users }}"
+  when: item.github is defined
+
+- name: Set authorized_keys for user accounts
+  authorized_key:
+    user: "{{ item.0.name | default(item.0.github) }}"
+    key: "{{ item.1 }}"
+  with_subelements:
+    - "{{ ssh_config_users }}"
+    - authorized_keys
+    - flags:
+      skip_missing: True
+
+- name: Ensure user accounts in ssh_config_users_absent are absent.
+  user:
+    name: "{{ item.name | default(item) }}"
+    state: absent
+  with_items: "{{ ssh_config_users_absent }}"
+
+- name: Setup sudoers.d
+  lineinfile:
+    dest: /etc/sudoers
+    line: "#includedir /etc/sudoers.d"
+    regexp: "^#includedir /etc/sudoers.d"
+    validate: "visudo -cf %s"
+    state: present
+
+- name: Setup passwordless sudo for groups.
+  copy:
+    content: "# Ansible Managed\n\n%{{ item.name }} ALL=(ALL) NOPASSWD:ALL\n"
+    dest: "/etc/sudoers.d/group.{{ item.name | default(item.github) }}"
+    owner: root
+    group: root
+    mode: 0440
+    validate: "visudo -cf %s"
+  with_items: "{{ ssh_config_groups }}"
+  when:
+    - item.passwordless_sudo is defined
+    - item.passwordless_sudo == True

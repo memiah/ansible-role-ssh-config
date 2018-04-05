@@ -1,0 +1,21 @@
+---
+- hosts: all
+
+  vars:
+    ssh_config_groups:
+      - name: developers
+        passwordless_sudo: True
+
+    ssh_config_users:
+      - name: user-1
+      - name: user-2
+        groups: developers
+      - name: user-3
+        authorized_keys:
+          - "ssh-rsa 01234567890...asdfghjkl"
+
+    ssh_config_users_absent:
+      - old-user
+
+  roles:
+    - ansible-role-ssh-config
