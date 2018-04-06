@@ -56,7 +56,7 @@
 - name: Setup passwordless sudo for groups.
   copy:
     content: "# Ansible Managed\n\n%{{ item.name }} ALL=(ALL) NOPASSWD:ALL\n"
-    dest: "/etc/sudoers.d/group.{{ item.name | default(item.github) }}"
+    dest: "/etc/sudoers.d/group-{{ item.name | default(item.github) }}"
     owner: root
     group: root
     mode: 0440
