@@ -9,6 +9,9 @@ galaxy_info:
   - name: EL
     versions:
     - all
+  - name: Debian
+    versions:
+    - 9
   galaxy_tags:
     - ssh
     - users
@@ -16,4 +19,5 @@ galaxy_info:
 
 dependencies:
   - role: geerlingguy.repo-epel
+    when: ansible_os_family == "RedHat"
   - role: geerlingguy.security
