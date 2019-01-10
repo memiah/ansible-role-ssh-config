@@ -41,8 +41,7 @@
   with_subelements:
   - "{{ ssh_config_users_combined }}"
   - authorized_keys
-  - flags:
-      skip_missing: True
+  - skip_missing: True
 
 - name: Ensure user accounts in ssh_config_users_absent are absent.
   user:
