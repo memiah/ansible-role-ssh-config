@@ -28,6 +28,11 @@ addition to the [username] group) by adding them as a comma-separated list in gr
 added using the authorized_keys options with a list of keys. Specify a github username to fetch authorised keys from
 GitHub.
 
+     ssh_config_groups_additional: []
+
+Additional system users that can be assigned to specific inventories or roles, useful when using `ssh_config_users` as a common default user list.
+
+
     ssh_config_users_absent: []
       # You can specify an object with 'name' (required):
       # - name: example
@@ -43,6 +48,10 @@ A list of users who should not be present on the server and should be removed.
       
 System groups that should be created. These can be assigned to users defined in `ssh_config_users`. If the group should
 be allowed passwordless_sudo, optionally set that here.
+
+    ssh_config_groups_additional: []
+
+Additional system groups that can be assigned to specific inventories or roles, useful when using `ssh_config_groups` as a common default group list.
 
     ssh_config_groups_absent: []
       # You can specify an object with 'name' (required):

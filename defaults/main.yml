@@ -1,14 +1,16 @@
 ---
 ssh_config_groups: []
   # - name: example
-  #   passwordless_sudo: True
+#   passwordless_sudo: True
+
+ssh_config_groups_additional: []
 
 ssh_config_groups_absent: []
   # You can specify an object with 'name' (required):
   # - name: example
 
   # Or you can specify a group directly:
-  # - example
+# - example
 
 ssh_config_users: []
   # You can specify an object with 'name' (required) and 'groups' (optional):
@@ -18,14 +20,16 @@ ssh_config_users: []
   #     - "ssh-rsa ..."
 
   # Or you can specify a GitHub username:
-  # - github: memiah
+# - github: memiah
+
+ssh_config_users_additional: []
 
 ssh_config_users_absent: []
   # You can specify an object with 'name' (required):
   # - name: example
 
   # Or you can specify a username directly:
-  # - example
+# - example
 
 ssh_config_github_url: https://github.com
 
