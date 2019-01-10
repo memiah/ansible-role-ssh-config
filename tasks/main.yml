@@ -42,7 +42,7 @@
   - "{{ ssh_config_users_combined }}"
   - authorized_keys
   - flags:
-    skip_missing: True
+      skip_missing: True
 
 - name: Ensure user accounts in ssh_config_users_absent are absent.
   user:
@@ -69,7 +69,7 @@
   with_items: "{{ ssh_config_groups_combined }}"
   when:
   - item.passwordless_sudo is defined
-  - item.passwordless_sudo == True
+  - item.passwordless_sudo
 
 - name: Copy /etc/sudoers.d/ssh_auth_sock into place.
   copy:
@@ -79,4 +79,4 @@
     group: root
     mode: 0440
     validate: "visudo -cf %s"
-  when: ssh_config_ssh_auth_sock == True
+  when: ssh_config_ssh_auth_sock
