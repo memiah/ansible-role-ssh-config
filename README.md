@@ -28,7 +28,7 @@ addition to the [username] group) by adding them as a comma-separated list in gr
 added using the authorized_keys options with a list of keys. Specify a github username to fetch authorised keys from
 GitHub.
 
-     ssh_config_groups_additional: []
+     ssh_config_users_additional: []
 
 Additional system users that can be assigned to specific inventories or roles, useful when using `ssh_config_users` as a common default user list.
 
