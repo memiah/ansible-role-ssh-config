@@ -74,7 +74,7 @@ For SSH agent forwarding, maintain the SSH_AUTH_SOCK environment variable.
 Dependencies
 ------------
 
-  - geerlingguy.security
+  - memiah.security
 
 Example Playbook
 ----------------
